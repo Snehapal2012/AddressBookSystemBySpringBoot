@@ -15,4 +15,8 @@ public interface IAddressBookService {
     void deleteById(long id);
 
     List<AddressBook> findUserByEmail(String email);
+
+    String uploadByToken(AddressBookDTO addressBookDTO) throws Exception;
+
+    List<AddressBook> getByToken(String token);
 }

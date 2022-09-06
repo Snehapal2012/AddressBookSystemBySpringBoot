@@ -18,11 +18,11 @@ public class AddressBook {
     private Long id;
     @Column(name = "name")
     private String name;
-    private Long phoneNumber;
+    private String phoneNumber;
     private String address;
     private String city;
     private String state;
-    private Long zipCode;
+    private String zipCode;
     @ElementCollection
     @CollectionTable(name = "user_email", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "email")

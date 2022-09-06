@@ -64,5 +64,18 @@ public class AddressBookController {
         ResponseDTO responseDTO=new ResponseDTO("Employee department is found!",addressBookList);
         return new ResponseEntity<>(responseDTO,HttpStatus.FOUND);
     }
+    @PostMapping ("/upload")
+    public ResponseEntity<ResponseDTO> uploadByToken(@Valid @RequestBody AddressBookDTO addressBookDTO) throws Exception{
+        String token=service.uploadByToken(addressBookDTO);
+        ResponseDTO responseDTO=new ResponseDTO("Details uploaded!",token);
+        return new ResponseEntity<>(responseDTO,HttpStatus.CREATED);
+    }
+    @CrossOrigin
+    @GetMapping("/getAllByToken/{token}")
+    public ResponseEntity<ResponseDTO> getByToken(@PathVariable String token){
+        List<AddressBook> addressBookList=service.getByToken(token);
+        ResponseDTO responseDTO=new ResponseDTO("Details found!",addressBookList);
+        return new ResponseEntity<>(responseDTO,HttpStatus.FOUND);
+    }
 }
 
