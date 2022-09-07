@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,25 +42,43 @@ public class AddressBookController {
     @GetMapping ("/allDetails")
     public ResponseEntity<ResponseDTO> getAll(){
         List<AddressBook> bookList=service.getAll();
-        ResponseDTO responseDTO=new ResponseDTO("All Employee details!",bookList);
+        ResponseDTO responseDTO=new ResponseDTO("All User details found!",bookList);
         return new ResponseEntity(responseDTO,HttpStatus.OK);
     }
     @GetMapping("/getUserById/{id}")
     public ResponseEntity<ResponseDTO> getUserById(@PathVariable long id){
         Optional<AddressBook> response=service.findById(id);
-        ResponseDTO responseDTO=new ResponseDTO("Employee details is found!",response);
+        ResponseDTO responseDTO=new ResponseDTO("User details is found!",response);
         return new ResponseEntity(responseDTO,HttpStatus.FOUND);
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDTO> deleteUserById(@PathVariable long id){
         service.deleteById(id);
-        ResponseDTO responseDTO=new ResponseDTO("Employee details is deleted!","Deleted employee id: "+id);
+        ResponseDTO responseDTO=new ResponseDTO("User details is deleted!","Deleted user id: "+id);
         return new ResponseEntity<>(responseDTO,HttpStatus.GONE);
     }
-    @GetMapping("/findUserByEmail/{email}")
-    public ResponseEntity<ResponseDTO> findUserByEmail(@PathVariable String email){
-        List<AddressBook> addressBookList=service.findUserByEmail(email);
-        ResponseDTO responseDTO=new ResponseDTO("Employee department is found!",addressBookList);
+    @GetMapping("/findUserByAddress/{address}")
+    public ResponseEntity<ResponseDTO> findUserByAddress(@PathVariable String address){
+        List<AddressBook> addressBookList=service.findUserByAddress(address);
+        ResponseDTO responseDTO=new ResponseDTO("User details is found by address!",addressBookList);
+        return new ResponseEntity<>(responseDTO,HttpStatus.FOUND);
+    }
+    @GetMapping("/findUserByCity/{city}")
+    public ResponseEntity<ResponseDTO> findUserByCity(@PathVariable String city){
+        List<AddressBook> addressBookList=service.findUserByCity(city);
+        ResponseDTO responseDTO=new ResponseDTO("User details is found by city!",addressBookList);
+        return new ResponseEntity<>(responseDTO,HttpStatus.FOUND);
+    }
+    @GetMapping("/findUserByState/{state}")
+    public ResponseEntity<ResponseDTO> findUserByState(@PathVariable String state){
+        List<AddressBook> addressBookList=service.findUserByState(state);
+        ResponseDTO responseDTO=new ResponseDTO("User details is found by state!",addressBookList);
+        return new ResponseEntity<>(responseDTO,HttpStatus.FOUND);
+    }
+    @GetMapping("/findUserByZip/{zip}")
+    public ResponseEntity<ResponseDTO> findUserByZip(@PathVariable String zip){
+        List<AddressBook> addressBookList=service.findUserByZip(zip);
+        ResponseDTO responseDTO=new ResponseDTO("User details is found by zipCode!",addressBookList);
         return new ResponseEntity<>(responseDTO,HttpStatus.FOUND);
     }
     @PostMapping ("/upload")
@@ -75,6 +92,13 @@ public class AddressBookController {
     public ResponseEntity<ResponseDTO> getByToken(@PathVariable String token){
         List<AddressBook> addressBookList=service.getByToken(token);
         ResponseDTO responseDTO=new ResponseDTO("Details found!",addressBookList);
+        return new ResponseEntity<>(responseDTO,HttpStatus.FOUND);
+    }
+    @CrossOrigin
+    @GetMapping("/findByToken/{token}")
+    public ResponseEntity<ResponseDTO> findByToken(@PathVariable String token){
+        AddressBook addressBook=service.findByToken(token);
+        ResponseDTO responseDTO=new ResponseDTO("Details found with token!",addressBook);
         return new ResponseEntity<>(responseDTO,HttpStatus.FOUND);
     }
 }

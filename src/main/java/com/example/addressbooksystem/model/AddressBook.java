@@ -19,14 +19,23 @@ public class AddressBook {
     @Column(name = "name")
     private String name;
     private String phoneNumber;
-    private String address;
-    private String city;
-    private String state;
-    private String zipCode;
     @ElementCollection
-    @CollectionTable(name = "user_email", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "email")
-    private List<String> email;
+    @CollectionTable(name = "addresses", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "address")
+    private List<String> address;
+    @ElementCollection
+    @CollectionTable(name = "cities", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "city")
+    private List<String> city;
+    @ElementCollection
+    @CollectionTable(name = "states", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "state")
+    private List<String> state;
+    @ElementCollection
+    @CollectionTable(name = "zipCodes", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "zipCode")
+    private List<String> zipCode;
+    private String email;
 
     public AddressBook(AddressBookDTO book) {
         this.name=book.getName();

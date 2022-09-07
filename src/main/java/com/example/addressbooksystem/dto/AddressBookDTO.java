@@ -13,13 +13,10 @@ public class AddressBookDTO {
     private String name;
     @Pattern(regexp = "^[1-9]{2}\\s{0,1}[0-9]{10}$",message = "Phone number should have 2 digit country code and 10 digit number!")
     private String phoneNumber;
-    private List<String> email;
-    @Size(min=3,message = "Address size should be more than 3!")
-    private String address;
-    @Pattern(regexp = "^[A-Z]{1,}[a-z]{0,}$",message = "City should starts with Caps letter!")
-    private String city;
-    @NotNull(message = "State can not be null!")
-    private String state;
-    @NotNull(message = "Zip Code can not be empty!")
-    private String zipCode;
+    @Email(message = "Email should be in email format!")
+    private String email;
+    private List<String> address;
+    private List<String> city;
+    private List<String> state;
+    private List<String> zipCode;
 }
